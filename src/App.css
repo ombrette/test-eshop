@@ -1,32 +1,61 @@
-.App {
+.Page-content{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Page-title{
   text-align: center;
+  font-family: 'Coiny', cursive;
+  width: 100%;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
+.Products-list {
   min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.Product-item{
+  width: calc((100% - 60px) / 3);
+  list-style: none;
+  margin-bottom: 40px;
+}
+
+.Product-container{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 12px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 300;
+  text-transform: capitalize;
 }
 
-.App-link {
-  color: #61dafb;
+.Product-image{
+  width: 100%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Product-title{
+  min-height: 46px;
+}
+
+.Add-to-cart{
+  font-size: 20px;
+  line-height: 24px;
+  border:none;
+  border: 2px solid black;
+  border-radius: 50px;
+}
+
+.Page-numbers{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Page-number{
+  list-style: none;
 }
