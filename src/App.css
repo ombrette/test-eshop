@@ -1,6 +1,20 @@
+*{
+  box-sizing: border-box;
+}
+
+body{
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #121313;
+}
+
+li{
+  list-style: none;
+}
+
 .Page-content{
   display: flex;
   flex-wrap: wrap;
+  background-color: #F5F5F5;
 }
 
 .Page-title{
@@ -9,19 +23,24 @@
   width: 100%;
 }
 
+.Products{
+  width: 75%;
+}
+
 .Products-list {
   min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  max-width: 80%;
+  max-width: 90%;
   margin: 0 auto;
 }
 
 .Product-item{
   width: calc((100% - 60px) / 3);
-  list-style: none;
   margin-bottom: 40px;
+  background-color: white;
+  padding: 10px;
 }
 
 .Product-container{
@@ -30,8 +49,6 @@
   align-items: center;
   justify-content: center;
   font-size: 12px;
-  font-family: 'Source Sans Pro', sans-serif;
-  font-weight: 300;
   text-transform: capitalize;
 }
 
@@ -48,14 +65,32 @@
   line-height: 24px;
   border:none;
   border: 2px solid black;
+  cursor: pointer;
   border-radius: 50px;
 }
 
 .Page-numbers{
   display: flex;
   flex-wrap: wrap;
+  cursor: pointer;
 }
 
 .Page-number{
-  list-style: none;
+  margin-right: 20px;
+}
+
+.Cart{
+  width: 25%;
+  padding: 20px;
+  background-color: #121313;
+  color: white;
+}
+
+.Cart-title{
+  color: #C10230;
+  font-family: 'Coiny', cursive;
+  border-bottom: 1px solid #C10230;
+}
+
+.Cart-item{
 }

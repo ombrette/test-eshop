@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const ProductList = props => {
+const Cart = props => {
   const isEmpty = !!props.products && props.products.length === 0;
   return (
-    <ul>
+    <ul className="Cart-list">
       {isEmpty && (
-        <li>
-          <span>Aucun produit existant!</span>
+        <li className="Cart-item">
+          <span>Votre panier est vide!</span>
         </li>
       )}
       {!!props.products && props.products.map((item, index) => {
@@ -23,11 +23,13 @@ class App extends React.Component {
     super(props);
     this.state = {
       productlist: [],
+      cart: [],
       currentPage: 1,
       productsPerPage: 15
     };
 
     this.handleClick = this.handleClick.bind(this);
+    this.handleCartClick = this.handleCartClick.bind(this);
 
     const url = 'https://jsonplaceholder.typicode.com/photos';
 
@@ -38,7 +40,7 @@ class App extends React.Component {
           <div className="Product-container" id={index}>
             <img src={item.url} className="Product-image" alt="Image du produit" />
             <h2 className="Product-title">{item.title}</h2>
-            <button className="Add-to-cart" onClick={this.handleClick}>+</button>
+            <button className="Add-to-cart" onClick={this.handleCartClick} id={index}>+</button>
           </div>
         )
       });
@@ -52,6 +54,16 @@ class App extends React.Component {
   handleClick(event) {
     this.setState({
       currentPage: Number(event.target.id)
+    });
+  }
+
+  handleCartClick(event) {
+    const cart = this.state.cart.slice(0);
+
+    cart.push(this.state.productlist[event.target.id])
+
+    this.setState({
+      cart: cart
     });
   }
 
@@ -85,17 +97,21 @@ class App extends React.Component {
     });
 
     return (
-      <div>
-        <h1 className="Page-title">Test eShop</h1>
-        <section>
-          <ul class="Products-list">
+      <main className="Page-content">
+        <section className="Products">
+          <h1 className="Page-title">Test eShop</h1>
+          <ul className="Products-list">
             {renderProducts}
           </ul>
-          <ul class="Page-numbers">
+          <ul className="Page-numbers">
             {renderPageNumbers}
           </ul>
         </section>
-      </div>
+        <aside className="Cart">
+          <p className="Cart-title">Votre panier</p>
+          <Cart products={this.state.cart} />
+        </aside>
+      </main>
     );
   }
 }
