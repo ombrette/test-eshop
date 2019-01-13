@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
 const Cart = props => {
@@ -12,7 +11,7 @@ const Cart = props => {
         </li>
       )}
       {!!props.products && props.products.map((item, index) => {
-        return <li key={index}>{item}</li>;
+        return <li className="Cart-item" key={index}>{item}</li>;
       })}
     </ul>
   );
@@ -30,6 +29,7 @@ class App extends React.Component {
 
     this.handleClick = this.handleClick.bind(this);
     this.handleCartClick = this.handleCartClick.bind(this);
+    this.handleCartRemoveClick = this.handleCartRemoveClick.bind(this);
 
     const url = 'https://jsonplaceholder.typicode.com/photos';
 
@@ -37,8 +37,8 @@ class App extends React.Component {
     .then((data)=>{
       let products = data.map((item, index) => {
         return(
-          <div className="Product-container" id={index}>
-            <img src={item.url} className="Product-image" alt="Image du produit" />
+          <div className="Product-container">
+            <img src={item.url} className="Product-image" alt="{item.title}" />
             <h2 className="Product-title">{item.title}</h2>
             <button className="Add-to-cart" onClick={this.handleCartClick} id={index}>+</button>
           </div>
@@ -60,15 +60,32 @@ class App extends React.Component {
   handleCartClick(event) {
     const cart = this.state.cart.slice(0);
 
-    cart.push(this.state.productlist[event.target.id])
+    let image = this.state.productlist[event.target.id].props.children.slice(0, 1)
+    let title = this.state.productlist[event.target.id].props.children.slice(1, 2)
+
+    let products =
+        <div className="Product-container" id={event.target.id}>
+          <img src={image[0].props.src} className="Product-image" alt={image[0].props.alt} />
+          <h2 className="Product-title">{title[0].props.children}</h2>
+          <button className="Remove-from-cart" onClick={this.handleCartRemoveClick} id={event.target.id}>-</button>
+        </div>;
+
+    cart.push(products);
 
     this.setState({
       cart: cart
     });
   }
 
+  handleCartRemoveClick(event) {
+    const cart = this.state.cart.filter((product, productIndex) => {
+      return product.props.id !== event.target.id
+    })
+    this.setState({ cart })
+  }
+
   render() {
-    const { productlist, currentPage, productsPerPage } = this.state;
+    const { productlist, currentPage, productsPerPage, cart } = this.state;
 
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -96,6 +113,8 @@ class App extends React.Component {
       );
     });
 
+    const cartTotal = cart.length;
+
     return (
       <main className="Page-content">
         <section className="Products">
@@ -110,6 +129,7 @@ class App extends React.Component {
         <aside className="Cart">
           <p className="Cart-title">Votre panier</p>
           <Cart products={this.state.cart} />
+          <p>Nombre total d'articles : {cartTotal}</p>
         </aside>
       </main>
     );

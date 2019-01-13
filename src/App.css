@@ -7,6 +7,10 @@ body{
   color: #121313;
 }
 
+ul{
+  padding: 0;
+}
+
 li{
   list-style: none;
 }
@@ -66,6 +70,7 @@ li{
   border:none;
   border: 2px solid black;
   cursor: pointer;
+  background-color: transparent;
   border-radius: 50px;
 }
 
@@ -73,14 +78,20 @@ li{
   display: flex;
   flex-wrap: wrap;
   cursor: pointer;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .Page-number{
   margin-right: 20px;
+  width: 25px;
 }
 
 .Cart{
   width: 25%;
+  height: 100vh;
+  position: fixed;
+  right: 0;
   padding: 20px;
   background-color: #121313;
   color: white;
@@ -92,5 +103,49 @@ li{
   border-bottom: 1px solid #C10230;
 }
 
-.Cart-item{
+.Cart-item .Product-container{
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 10px;
+}
+
+.Cart-item .Product-image{
+  width: 40px;
+  margin-right: 10px;
+}
+
+.Cart-item .Product-title{
+  margin-right: 10px;
+}
+
+.Remove-from-cart{
+  background-color: transparent;
+  font-size: 20px;
+  line-height: 24px;
+  border:none;
+  border: 2px solid white;
+  cursor: pointer;
+  border-radius: 50px;
+  color: white;
+}
+
+@media screen and (max-width: 767px) {
+  .Page-content{
+    flex-direction: row-reverse;
+  }
+
+  .Products{
+    width: 100%;
+  }
+
+  .Product-item{
+    width: 100%;
+  }
+
+  .Cart{
+    width: 100%;
+    height: auto;
+    position: initial;
+    right: auto;
+  }
 }
