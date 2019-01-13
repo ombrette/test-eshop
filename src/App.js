@@ -2,24 +2,55 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-class App extends Component {
+const ProductList = props => {
+  const isEmpty = !!props.products && props.products.length === 0;
+  return (
+    <ul>
+      {isEmpty && (
+        <li>
+          <span>Aucun produit existant!</span>
+        </li>
+      )}
+      {!!props.products && props.products.map((item, index) => {
+        return <li key={index}>{item}</li>;
+      })}
+    </ul>
+  );
+};
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: '',  
+      productlist: []
+    };
+
+    const url = 'https://jsonplaceholder.typicode.com/photos';
+
+    fetch(url).then((resp) => resp.json())
+    .then((data)=>{
+      let products = data.map((item, index) => {
+        return(
+          <div id={index}>
+            <img src={item.thumbnailUrl} className="Product-image" alt="Image du produit" />
+            <h2>{item.title}</h2>
+            <button onClick={this.handleClick}>+</button>
+          </div>
+        )
+      });
+      this.setState({ productlist: products });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <h1>Test eShop</h1>
+        <ProductList products={this.state.productlist} />
       </div>
     );
   }
