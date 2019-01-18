@@ -1,5 +1,12 @@
 import React from 'react';
 import './App.css';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import red from '@material-ui/core/colors/red';
+import Icon from '@material-ui/core/Icon';
+import Divider from '@material-ui/core/Divider';
 
 const Cart = props => {
   const isEmpty = !!props.products && props.products.length === 0;
@@ -40,7 +47,7 @@ class App extends React.Component {
           <div className="Product-container" id={index}>
             <img src={item.url} className="Product-image" alt="{item.title}" />
             <h2 className="Product-title">{item.title}</h2>
-            <button className="Add-to-cart" onClick={this.handleCartClick} id={index}>+</button>
+            <Icon className="Add-to-cart" color="action" onClick={this.handleCartClick} id={index}>+</Icon>
             <button className="Remove-from-cart" onClick={this.handleCartRemoveClick} id={index}>-</button>
           </div>
         )
@@ -108,7 +115,13 @@ class App extends React.Component {
     return (
       <main className="Page-content">
         <section className="Products">
-          <h1 className="Page-title">Test eShop</h1>
+          <AppBar position="static" color="default">
+            <Toolbar>
+              <Typography variant="h6" color="inherit">
+                Test eShop
+              </Typography>
+            </Toolbar>
+          </AppBar>
           <ul className="Products-list">
             {renderProducts}
           </ul>
