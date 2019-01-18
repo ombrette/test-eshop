@@ -63,7 +63,6 @@ class App extends React.Component {
       return item.props.id === parseInt(event.target.id)
     })
     product.map((item, index) => {
-      console.log(item.props)
         this.setState({ cart : [...this.state.cart, item] })
     });
   }
