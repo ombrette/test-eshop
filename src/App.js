@@ -37,10 +37,11 @@ class App extends React.Component {
     .then((data)=>{
       let products = data.map((item, index) => {
         return(
-          <div className="Product-container">
+          <div className="Product-container" id={index}>
             <img src={item.url} className="Product-image" alt="{item.title}" />
             <h2 className="Product-title">{item.title}</h2>
             <button className="Add-to-cart" onClick={this.handleCartClick} id={index}>+</button>
+            <button className="Remove-from-cart" onClick={this.handleCartRemoveClick} id={index}>-</button>
           </div>
         )
       });
@@ -58,28 +59,18 @@ class App extends React.Component {
   }
 
   handleCartClick(event) {
-    const cart = this.state.cart.slice(0);
-
-    let image = this.state.productlist[event.target.id].props.children.slice(0, 1)
-    let title = this.state.productlist[event.target.id].props.children.slice(1, 2)
-
-    let products =
-        <div className="Product-container" id={event.target.id}>
-          <img src={image[0].props.src} className="Product-image" alt={image[0].props.alt} />
-          <h2 className="Product-title">{title[0].props.children}</h2>
-          <button className="Remove-from-cart" onClick={this.handleCartRemoveClick} id={event.target.id}>-</button>
-        </div>;
-
-    cart.push(products);
-
-    this.setState({
-      cart: cart
+    const product = this.state.productlist.filter((item, productIndex) => {
+      return item.props.id === parseInt(event.target.id)
+    })
+    product.map((item, index) => {
+      console.log(item.props)
+        this.setState({ cart : [...this.state.cart, item] })
     });
   }
 
   handleCartRemoveClick(event) {
     const cart = this.state.cart.filter((product, productIndex) => {
-      return product.props.id !== event.target.id
+      return product.props.id !== parseInt(event.target.id)
     })
     this.setState({ cart })
   }
